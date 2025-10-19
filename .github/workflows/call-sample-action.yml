@@ -1,0 +1,12 @@
+name: 'Call Sample Action in different repository'
+on:
+  workflow_dispatch:
+jobs:
+  call-sample-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Calling the Shared Workflow Action
+        uses: PanchOrg/sampleaction@v1
+        with:
+          working_directory: src
+          node_version: 20

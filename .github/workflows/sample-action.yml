@@ -1,0 +1,25 @@
+name: 'Sample Workflow: Shared Workflow Action'
+on:
+  workflow_dispatch:
+    inputs:
+      working_directory:
+        description: 'The working directory of the project'
+        required: true
+        type: string
+      node_version:
+        description: 'The node version to use'
+        required: true
+        type: string
+  
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ inputs.node_version }}
+      - name: Run Tests
+        run: npx cypress run --config-file ${{ inputs.working_directory }}/cypress.config.ts --browser ${{ inputs.browser }} --spec ${{ inputs.test_file }}
